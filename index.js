@@ -13,7 +13,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));
 
@@ -32,6 +32,8 @@ app.use("/api/ngo" , require("./routes/ngoRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 
 // DB + Server
+const PORT = process.env.PORT || 5000;
+
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(5000, () => console.log("Server Running 🚀")))
+  .then(() => app.listen(PORT, () => console.log("Server Running 🚀")))
   .catch(err => console.error(err));
