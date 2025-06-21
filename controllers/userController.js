@@ -4,6 +4,13 @@ const User = require("../models/User");
 const cloudinary = require("../utils/cloudinary");
 const upload = require("../middleware/upload")
 
+
+
+// ✅ Get current user
+exports.getCurrentUser = async (req, res) => {
+  res.json(req.user);
+};
+
 // 🌟 POST /api/auth/create-profile
 exports.createProfile = async (req, res) => {
   try {

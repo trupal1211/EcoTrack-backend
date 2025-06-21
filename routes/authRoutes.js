@@ -5,7 +5,6 @@ const {
   register,
   requestForNgoRole,
   login,
-  getCurrentUser,
   logout,
   setPassword,
   sendOtp,
@@ -21,8 +20,6 @@ router.post("/logout", logout);
 router.post("/set-password",auth, setPassword);
 router.post("/send-otp", sendOtp);
 router.post("/reset-password", resetPasswordWithOtp);
-
-router.get("/me", auth, getCurrentUser);
 
 router.post("/request-ngo",upload.single("logo"),requestForNgoRole);
 

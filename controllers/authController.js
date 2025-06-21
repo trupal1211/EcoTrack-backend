@@ -69,10 +69,6 @@ exports.login = async (req, res) => {
   }
 };
 
-// ✅ Get current user
-exports.getCurrentUser = async (req, res) => {
-  res.json(req.user);
-};
 
 // 🚪 Logout
 exports.logout = (req, res) => {

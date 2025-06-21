@@ -18,7 +18,8 @@ const {
   createProfile,
   updateProfile,
   getUserById,
-  getAllReports
+  getAllReports,
+  getCurrentUser
 } = require("../controllers/userController");
 
 // 🔐 Profile Routes
@@ -44,6 +45,7 @@ router.get("/my-upvotes", auth, getUpvotedReports);
 router.get("/my-comments", auth, getCommentedReports);
 
 // 🔍 User Info
+router.get("/me", auth, getCurrentUser);
 router.get("/:userId", auth, getUserById);
 
 module.exports = router;
