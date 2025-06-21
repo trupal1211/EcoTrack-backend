@@ -199,14 +199,9 @@ exports.createReport = async (req, res) => {
 };
 
 // Get All Reports - Filter
-exports.getReportsByFilter = async (req, res) => {
+exports.getAllReports = async (req, res) => {
   try {
-    const { city, status } = req.query;
-    const query = {};
-    if (city) query.city = city;
-    if (status) query.status = status;
-
-    const reports = await Report.find(query)
+    const reports = await Report.find()
       .sort({ createdAt: -1 })
       .populate("postedBy", "name role email photo city")
       .populate("takenBy", "name email photo");
@@ -216,6 +211,38 @@ exports.getReportsByFilter = async (req, res) => {
     res.status(500).json({ msg: "Failed to fetch reports", error: err.message });
   }
 };
+
+// Get All Reports - Filter + Pagination
+exports.getReportsByFilter = async (req, res) => {
+  try {
+    const { city, status, page = 1, limit = 10 } = req.query;
+
+    const query = {};
+    if (city) query.city = city;
+    if (status) query.status = status;
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+
+    const totalReports = await Report.countDocuments(query);
+
+    const reports = await Report.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .populate("postedBy", "name role email photo city")
+      .populate("takenBy", "name email photo");
+
+    res.json({
+      reports,
+      currentPage: parseInt(page),
+      totalPages: Math.ceil(totalReports / limit),
+      totalReports,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: "Failed to fetch reports", error: err.message });
+  }
+};
+
 
 // Get Reports By reportId
 exports.getReportById = async (req, res) => {
