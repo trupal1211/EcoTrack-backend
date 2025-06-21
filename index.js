@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/auth", require("./routes/oauthRoutes"));
+app.use("/api/oauth", require("./routes/oauthRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/ngo" , require("./routes/ngoRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
