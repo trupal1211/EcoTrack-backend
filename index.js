@@ -30,6 +30,7 @@ app.use("/api/oauth", require("./routes/oauthRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/ngo" , require("./routes/ngoRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/report" , require("./routes/reportRoutes"));
 
 // DB + Server
 const PORT = process.env.PORT || 5000;

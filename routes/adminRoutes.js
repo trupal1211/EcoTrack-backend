@@ -17,7 +17,7 @@ const role = require('../middleware/roleMiddleware')
 router.use(auth);
 router.use(role(['admin']));
 
-// Admin APIs
+
 router.get("/users", getAllUsers);
 router.get("/ngos", getAllNGOs);
 router.get("/reports", getAllReports);
