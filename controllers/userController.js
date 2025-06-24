@@ -7,7 +7,8 @@ const upload = require("../middleware/upload")
 
 // ✅ Get current user
 exports.getCurrentUser = async (req, res) => {
-  res.json(req.user);
+  const user = await User.findById(req.user.id).select("-password");
+  res.json(user);
 };
 
 // 🌟 POST /api/auth/create-profile
