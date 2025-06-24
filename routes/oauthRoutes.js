@@ -27,7 +27,7 @@ router.get(
     //   return res.redirect(`http://localhost:5173/set-password?email=${req.user.email}`);
     // }
 
-    res.redirect(process.env.FRONTEND_URL); // frontend redirect
+    res.redirect(process.env.FRONTEND_URL/oauth/success); // frontend redirect
   }
 );
 
