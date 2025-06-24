@@ -33,10 +33,10 @@ exports.register = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "None",
+      secure: true, // ✅ must be true in production with HTTPS
+      sameSite: "None", // ✅ required for cross-origin cookies
       maxAge: 24 * 60 * 60 * 1000,
-    });
+   });
 
     res.status(201).json({ user: newUser });
   } catch (err) {
@@ -58,8 +58,8 @@ exports.login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
+      secure: true, // ✅ must be true in production with HTTPS
+      sameSite: "None", // ✅ required for cross-origin cookies
       maxAge: 24 * 60 * 60 * 1000,
     });
 
