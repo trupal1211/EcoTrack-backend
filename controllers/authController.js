@@ -35,6 +35,7 @@ exports.register = async (req, res) => {
       httpOnly: true,
       secure: true, // ✅ must be true in production with HTTPS
       sameSite: "None", // ✅ required for cross-origin cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000
    });
 
     res.status(201).json({ user: newUser });
@@ -59,6 +60,7 @@ exports.login = async (req, res) => {
       httpOnly: true,
       secure: true, // ✅ must be true in production with HTTPS
       sameSite: "None", // ✅ required for cross-origin cookies
+      maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
     res.json({ user});
@@ -74,6 +76,7 @@ exports.logout = (req, res) => {
     httpOnly: true,
     secure: true,         // ✅ true if you're on HTTPS (Render or Vercel)
     sameSite: "None",     // ✅ must match what was used in login
+    maxAge: 7 * 24 * 60 * 60 * 1000
   });
   res.json({ msg: "Logged out successfully" });
 };
