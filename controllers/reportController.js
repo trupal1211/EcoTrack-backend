@@ -16,18 +16,26 @@ exports.createReport = async (req, res) => {
       autoLocation
     } = req.body;
 
+    let parsedLocation = {};
+
+    try {
+      parsedLocation = JSON.parse(autoLocation);
+    } catch (error) {
+      return res.status(400).json({ msg: "Invalid autoLocation format" });
+    }
+
+
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ msg: "At least one photo is required" });
     }
 
     const photos = req.files.map(file => file.path);
-
     const newReport = new Report({
       title,
       description,
       landmark,
       city,
-      autoLocation,
+      autoLocation: parsedLocation,
       photos,
       postedBy: req.user._id,
       status: "pending"
@@ -39,6 +47,7 @@ exports.createReport = async (req, res) => {
     res.status(500).json({ msg: err.message });
   }
 };
+
 
 // Get All Reports - Filter
 exports.getAllReports = async (req, res) => {
