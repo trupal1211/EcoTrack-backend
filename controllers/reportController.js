@@ -222,7 +222,9 @@ exports.addComment = async (req, res) => {
 // Get Reports Created by Logged-in User
 exports.getMyReports = async (req, res) => {
   try {
-    const reports = await Report.find({ postedBy: req.user._id }).sort({ createdAt: -1 });
+    const reports = await Report.find({ postedBy: req.user._id })
+                                .popolate("postedBy","name photo city")
+                                .sort({ createdAt: -1 });
     res.json(reports);
   } catch (err) {
     res.status(500).json({ msg: err.message });
@@ -233,7 +235,9 @@ exports.getMyReports = async (req, res) => {
 // Get Reports Upvoted by Logged-in User
 exports.getUpvotedReports = async (req, res) => {
   try {
-    const reports = await Report.find({ upvotes: req.user._id }).sort({ createdAt: -1 });
+    const reports = await Report.find({ upvotes: req.user._id })
+                                .popolate("postedBy","name photo city")
+                                .sort({ createdAt: -1 });
     res.json(reports);
   } catch (err) {
     res.status(500).json({ msg: err.message });
