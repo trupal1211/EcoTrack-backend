@@ -143,9 +143,9 @@ exports.getTakenReports = async (req, res) => {
   try {
     const reports = await Report.find({
       status: "taken",
-      takenBy: req.user._id
+      takenBy: req.params.userId
     })
-      .populate("postedBy", "name role")
+      .populate("postedBy", "name role photo city")
       .sort({ takenOn: -1 });
 
     res.json({
@@ -163,9 +163,9 @@ exports.getCompletedReports = async (req, res) => {
   try {
     const reports = await Report.find({
       status: "completed",
-      takenBy: req.user._id
+      takenBy: req.params.userId
     })
-      .populate("postedBy", "name role")
+      .populate("postedBy", "name role photo city")
       .sort({ resolvedOn: -1 });
 
     res.json({
@@ -182,9 +182,9 @@ exports.getCompletedReports = async (req, res) => {
 exports.getUncompletedReports = async (req, res) => {
   try {
     const reports = await Report.find({
-      uncompletedBy: req.user._id
+      uncompletedBy: req.params.userId
     })
-      .populate("postedBy", "name role")
+      .populate("postedBy", "name role photo city")
       .sort({ updatedAt: -1 });
 
     res.json({
