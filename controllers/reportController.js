@@ -223,7 +223,7 @@ exports.addComment = async (req, res) => {
 exports.getMyReports = async (req, res) => {
   try {
     const reports = await Report.find({ postedBy: req.user._id })
-                                .popolate("postedBy","name photo city")
+                                .populate("postedBy","name photo city")
                                 .sort({ createdAt: -1 });
     res.json(reports);
   } catch (err) {
@@ -236,7 +236,7 @@ exports.getMyReports = async (req, res) => {
 exports.getUpvotedReports = async (req, res) => {
   try {
     const reports = await Report.find({ upvotes: req.user._id })
-                                .popolate("postedBy","name photo city")
+                                .populate("postedBy","name photo city")
                                 .sort({ createdAt: -1 });
     res.json(reports);
   } catch (err) {
