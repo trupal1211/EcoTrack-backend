@@ -119,9 +119,10 @@ exports.handleNgoApproval = async (req, res) => {
       // Create or update user
       let user = await User.findOne({ email: request.email });
 
-    if (["admin", "ngo"].includes(user.role)) {
-      return res.status(409).json({ msg: "User already has a role" });
-    }
+      if (["admin", "ngo"].includes(user.role)) {
+        request.status = "rejected"
+        return res.status(409).json({ msg: "User already has a role" });
+      }
 
       if (user) {
         user.role = "ngo";
