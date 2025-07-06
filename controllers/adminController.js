@@ -190,3 +190,23 @@ exports.removeNgoRole = async (req, res) => {
   }
 };
 
+
+
+exports.deleteUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    await user.deleteOne();
+
+    return res.status(200).json({ msg: "User deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+};
