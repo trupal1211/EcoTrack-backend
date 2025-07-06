@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // 🔐 Register (user / ngo)
 exports.register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role , city , photo } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -25,6 +25,8 @@ exports.register = async (req, res) => {
       email,
       password: hashedPassword,
       role,
+      city,
+      photo
     });
 
     await newUser.save();
