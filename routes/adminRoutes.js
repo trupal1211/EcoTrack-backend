@@ -22,7 +22,7 @@ router.use(role(['admin']));
 router.get("/users", getAllUsers);
 router.get("/ngos", getAllNGOs);
 router.get("/reports", getAllReports);
-router.get("/users/:id",deleteUserById)
+router.delete("/users/:id",deleteUserById)
 router.delete("/report/:reportId", deleteReport);
 router.put("/report/:reportId/status", changeReportStatus);
 
