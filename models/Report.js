@@ -49,11 +49,13 @@ const reportSchema = new mongoose.Schema({
   resolutionDescription: { type: String },
   resolvedOn: { type: Date },
 
-  incompletedBy: {
+  incompletedBy: [ 
+    {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     default: null
-  },
+    }
+  ],
 
   comments: [
     {
