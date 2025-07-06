@@ -49,7 +49,7 @@ const reportSchema = new mongoose.Schema({
   resolutionDescription: { type: String },
   resolvedOn: { type: Date },
 
-  uncompletedBy: {
+  incompletedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     default: null
