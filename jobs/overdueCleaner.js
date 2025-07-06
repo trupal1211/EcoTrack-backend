@@ -52,7 +52,7 @@ cron.schedule("0 * * * *", async () => {
     );
 
       report.status = "pending";
-      report.incompletedBy = report.takenBy;
+      report.incompletedBy.push(report.takenBy);
       report.takenBy = null;
       report.dueDate = null;
       report.takenOn = null;
