@@ -60,7 +60,9 @@ exports.changeReportStatus = async (req, res) => {
 
 exports.getAllNgoRequests = async (req, res) => {
   try {
-    const requests = await NgoRequest.find().select("-password");
+    const requests = await NgoRequest.find()
+                                     .sort({ createdAt: -1 })
+                                     .select("-password");
     res.json({ requests });
   } catch (err) {
     res.status(500).json({ msg: "Failed to fetch NGO requests", error: err.message });
