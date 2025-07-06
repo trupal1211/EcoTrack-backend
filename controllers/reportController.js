@@ -247,9 +247,9 @@ exports.getUpvotedReports = async (req, res) => {
 // Get Reports Commented on by Logged-in User
 exports.getCommentedReports = async (req, res) => {
   try {
-    const reports = await Report.find({
-      "comments.user": req.user._id
-    }).sort({ createdAt: -1 });
+    const reports = await Report.find({"comments.user": req.user._id})
+                                     .populate("postedBy", "name photo city")
+                                     .sort({ createdAt: -1 });
     res.json(reports);
   } catch (err) {
     res.status(500).json({ msg: err.message });
