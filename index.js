@@ -13,10 +13,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "https://ecotrack-green.vercel.app",
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));
-app.options("*", cors());
 
 app.use(session({ secret: "your_secret", resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
