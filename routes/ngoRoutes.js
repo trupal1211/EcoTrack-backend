@@ -5,7 +5,7 @@ const{takeReport,
     completeReport,
     getTakenReports,
     getCompletedReports,
-    getUncompletedReports
+    getIncompletedReports
 }=require("../controllers/ngoController")
 
 const auth = require('../middleware/authMiddleware')
@@ -18,6 +18,6 @@ router.put("/take/:reportId", role(['ngo','admin']), takeReport);
 router.put("/complete/:reportId", role(['ngo','admin']), upload.array("resolvedImages", 5), completeReport);
 router.get("/taken/:userId", getTakenReports);
 router.get("/completed/:userId",  getCompletedReports);
-router.get("/incompleted/:userId", getUncompletedReports);
+router.get("/incompleted/:userId", getIncompletedReports);
 
 module.exports = router;
