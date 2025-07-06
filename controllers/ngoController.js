@@ -178,21 +178,21 @@ exports.getCompletedReports = async (req, res) => {
   }
 };
 
-// ✅ Uncompleted Reports
-exports.getUncompletedReports = async (req, res) => {
+// ✅ Incompleted Reports
+exports.getIncompletedReports = async (req, res) => {
   try {
     const reports = await Report.find({
-      uncompletedBy: req.params.userId
+      incompletedBy: req.params.userId
     })
       .populate("postedBy", "name role photo city")
       .sort({ updatedAt: -1 });
 
     res.json({
-      msg: "Uncompleted reports fetched successfully",
+      msg: "Incompleted reports fetched successfully",
       count: reports.length,
       reports,
     });
   } catch (err) {
-    res.status(500).json({ msg: "Failed to fetch uncompleted reports", error: err.message });
+    res.status(500).json({ msg: "Failed to fetch incompleted reports", error: err.message });
   }
 };
