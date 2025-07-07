@@ -49,7 +49,7 @@ exports.createReport = async (req, res) => {
 };
 
 
-// Get All Reports - Filter
+// Get All Reports
 exports.getAllReports = async (req, res) => {
   try {
     const reports = await Report.find()
@@ -63,17 +63,57 @@ exports.getAllReports = async (req, res) => {
   }
 };
 
-// Get All Reports - Filter + Pagination
+
+// Get All Reports - Filter + Pagination ( For show in Map )
 exports.getReportsByFilter = async (req, res) => {
+  try {
+    const { city, status } = req.query;
+
+    const query = {};
+
+    if (city) {
+      const cityRegex = new RegExp(city, "i"); // case-insensitive partial match
+      query.$or = [
+        { city: cityRegex },
+        { landmark: cityRegex }
+      ];
+    }
+
+    if (status) query.status = status;
+
+    const reports = await Report.find(query)
+      .sort({ createdAt: -1 })
+
+    res.json({ reports });
+  } catch (err) {
+    res.status(500).json({
+      msg: "Failed to fetch reports",
+      error: err.message || err,
+    });
+  }
+};
+
+
+
+
+// Get All Reports - Filter + Pagination
+exports.getReportsByFilterAndPagination = async (req, res) => {
   try {
     const { city, status, page = 1, limit = 10 } = req.query;
 
     const query = {};
-    if (city) query.city = city;
+
+    if (city) {
+      const cityRegex = new RegExp(city, "i"); // case-insensitive regex
+      query.$or = [
+        { city: cityRegex },
+        { landmark: cityRegex }
+      ];
+    }
+
     if (status) query.status = status;
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
-
     const totalReports = await Report.countDocuments(query);
 
     const reports = await Report.find(query)
@@ -90,7 +130,10 @@ exports.getReportsByFilter = async (req, res) => {
       totalReports,
     });
   } catch (err) {
-    res.status(500).json({ msg: "Failed to fetch reports", error: err.message });
+    res.status(500).json({
+      msg: "Failed to fetch reports",
+      error: err.message || err,
+    });
   }
 };
 
