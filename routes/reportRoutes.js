@@ -6,6 +6,7 @@ const upload = require("../middleware/upload");
 const {
   createReport,
   getReportsByFilter,
+  getReportsByFilterAndPagination,
   getReportById,
   getReportsByUserId,
   getReportsByTakenId,
@@ -23,6 +24,7 @@ const {
 router.post("/", auth, upload.array("photos", 5), createReport);
 router.get("/", getAllReports); // all reports with filter
 router.get("/filter", getReportsByFilter); // optional custom filters
+router.get("/filter-paging" , getReportsByFilterAndPagination ) // optional custom filters and paging
 router.get("/reports/:reportId", auth, getReportById);
 router.get("/reports-by/:userId", auth, getReportsByUserId);
 router.get("/reports-takenby/:takenBy", auth, getReportsByTakenId);
