@@ -104,6 +104,7 @@ exports.getReportById = async (req, res) => {
       .populate("postedBy", "name email role photo city") // user who posted the report
       .populate("takenBy", "name email role photo city")  // ngo who took the report
       .populate("comments.user", "name photo") // Populate user in comments
+      .populate("incompletedBy", "name email role photo city")  
       .exec();
 
     if (!report) {
