@@ -33,7 +33,7 @@ app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/report" , require("./routes/reportRoutes"));
 
 // DB + Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 1000;
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => app.listen(PORT,"0.0.0.0", () => console.log("Server Running 🚀")))
