@@ -36,5 +36,5 @@ app.use("/api/report" , require("./routes/reportRoutes"));
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(PORT, () => console.log("Server Running 🚀")))
+  .then(() => app.listen(PORT,"0.0.0.0", () => console.log("Server Running 🚀")))
   .catch(err => console.error(err));
